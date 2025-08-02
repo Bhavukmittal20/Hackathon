@@ -7,10 +7,17 @@ import bodyParser from "body-parser"
 import userRouter from "./Routes/user.route.js"
 const app = express()
 connectDB()
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(express.json())
 const port = 3000
-app.use('/api/user',userRouter)
+import cookieParser from 'cookie-parser';
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
+app.use('/api/user',userRouter)
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
