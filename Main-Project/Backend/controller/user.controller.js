@@ -41,4 +41,23 @@ const loginUser=async (req,res)=>{
 
     res.json({ success: true, token });
 }
-export {registerUser,loginUser}
+const getProfile=async (req,res)=>{
+  try{
+    const userId=req.userId
+    console.log(userId)
+    const userData=await userModel.findById(userId).select('-password')
+    res.json({success:true,userData})
+}catch(e){
+    console.log(e)
+    res.json({success:false,message:"An error occured"})
+}
+}
+const logoutUser = (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  });
+  res.json({ success: true, message: "Logged out successfully" });
+};
+export {registerUser,loginUser,getProfile,logoutUser}

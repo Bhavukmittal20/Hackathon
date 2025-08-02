@@ -6,18 +6,23 @@ import { Route,Routes } from 'react-router-dom'
 import './App.css'
 import Register from './pages/Register.jsx'
 import { ToastContainer, toast } from 'react-toastify';
+import Home from './pages/Home.jsx'
+import Header from './components/Header.jsx'
+import MainLayout from './components/MainLayout.jsx'
 function App() {
-  const [count, setCount] = useState(0)
+  return(
+  <Routes>
+  {/* Pages WITH header */}
+  <Route element={<MainLayout />}>
+    <Route path="/home" element={<Home />} />
+    {/* add more if needed */}
+  </Route>
 
-  return (
-    <>
-    <ToastContainer />
-    <Routes>
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-    </Routes>
-    </>
-  )
+  {/* Pages WITHOUT header */}
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} />
+</Routes>
+);
 }
 
 export default App
